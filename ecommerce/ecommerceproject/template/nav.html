@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success" style="width:1300px;height:100px;">
+<div class="container-fluid">
+
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height:50px;">
+        <li class="nav-item" style="font-size:18px;">
+          <a class="nav-link active" aria-current="page" href="{% url 'shop:allProdCat' %}">Home</a>
+        </li>
+          
+        <li class="nav-item dropdown {% if 'shop' in request.path %} active {% endif %}" style="font-size:18px;">
+         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Shop
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+           <li><a class="dropdown-item" href="{% url 'shop:allProdCat' %}">All products</a></li>
+           {% for cat in links %}
+            <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class="nav-item" style="font-size:18px;">
+           <a class="nav-link" href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-cart"></i>{{item_count}}</a>
+        </li>
+
+      </ul>
+      <form class="d-flex"  action="{% url 'search_app:SearchResult' %}" method="get">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+        <button class="btn btn-warning" type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+    </div>
+</nav>
+
+
